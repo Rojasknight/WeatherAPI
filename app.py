@@ -26,4 +26,4 @@ def index():
     weather_data = []
     weather_data.append(weather)
 
-    return render_template('/index.html')
+    return render_template('/index.html', weather_data=weather_data, response=res)
