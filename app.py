@@ -1,6 +1,6 @@
 import requests
 from os import environ
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -18,7 +18,11 @@ def index():
     if city == '':
         city = "Medellin"
     res = get_weather_data(city)
-    
+    print(res['cod'])
+    if res['cod'] == '404':
+        city = "Medellin"
+        res = get_weather_data('Medellin')
+        
     weather = {
         'city' : city,
         'temperature' : res['main']['temp'],
