@@ -17,8 +17,9 @@ def index():
     city = request.form.get('city')
     if city == '':
         city = "Medellin"
+        
     res = get_weather_data(city)
-    print(res['cod'])
+
     if res['cod'] == '404':
         city = "Medellin"
         res = get_weather_data('Medellin')
