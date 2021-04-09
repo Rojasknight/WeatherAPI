@@ -5,16 +5,19 @@ from flask import Flask, render_template, request
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
+""" Return weather data from end-point """
+def get_weather_data(city):
+    url = environ.get('END_POINT_UNITS')
+    res = requests.get(url.format(city)).json()
+    return res
 
 """ Return render with context (weather_data) """
-
 @app.route('/weather', methods=['GET', 'POST'])
 def index():
-    url = environ.get('END_POINT_UNITS')
     city = request.form.get('city')
     if city == '':
         city = "Medellin"
-    res = requests.get(url.format(city)).json()
+    res = get_weather_data(city)
     
     weather = {
         'city' : city,
